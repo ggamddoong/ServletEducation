@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper태그는 SQL문을 묶는 용도로 사용한다. -->
+<mapper namespace="spms.dao.ProjectDao">
+    <!-- resultMap 엘리먼트를 사용하면 칼럼 이름과 setter이름의 불일치 문제를 해결할 수 있다. -->
+    <resultMap type="project" id="projectResultMap">
+        <!-- mybatis는 SELECT결과를 캐싱하는데 이를 위해 id는 객체 식별자로 사용 -->
+        <id column="PNO" property="no" />
+         
+        <!-- result 엘리먼트는 resultMap의 자식 태그로서 칼럼과 setter 메서드의 연결을 정희한다. -->
+        <!-- column 속성에는 칼럼 이름을 지정하고, property 속성에는 객체의 프로퍼티 이름을 지정한다. -->
+        <result column="PNAME" property="title" />
+        <result column="CONTENT" property="content" />
+        <!-- javaType을 사용하면 특정 자바 객체로 변환할 수 있다. -->
+        <result column="STA_DATE" property="startDate" javaType="java.sql.Date" />
+        <result column="END_DATE" property="endDate" javaType="java.sql.Date" />
+        <result column="STATE" property="state" />
+        <result column="CRE_DATE" property="createdDate" javaType="java.sql.Date" />
+        <result column="TAGS" property="tags" />
+    </resultMap>
+  
+  
+    <!-- select, insert, update, delete 엘리먼트 / resultMap에는 클래스 이름(패키지 이름 포함)이 온다. -->
+    <!-- mybatis는 resultType에 선언된 클래스의 인스턴스를 생성한다. 그리고 각 칼럼에 대응하는 setter 메서드를 찾아서 호출한다. -->  
+  <select id="selectList" parameterType="map" resultMap="projectResultMap">
+    select PNO, PNAME, STA_DATE, END_DATE, STATE
+    from PROJECTS
+    order by
+    <choose> 
+        <when test="orderCond == 'TITLE_ASC'">PNAME asc</when>
+        <when test="orderCond == 'TITLE_DESC'">PNAME desc</when>
+        <when test="orderCond == 'STARTDATE_ASC'">STA_DATE asc</when>
+        <when test="orderCond == 'STARTDATE_DESC'">STA_DATE desc</when>
+        <when test="orderCond == 'ENDDATE_ASC'">END_DATE asc</when>
+        <when test="orderCond == 'ENDDATE_DESC'">END_DATE desc</when>
+        <when test="orderCond == 'STATE_ASC'">STATE asc</when>
+        <when test="orderCond == 'STATE_DESC'">STATE desc</when>
+        <when test="orderCond == 'PNO_ASC'">PNO asc</when>
+        <otherwise>PNO desc</otherwise>
+    </choose>
+  </select>
+  
+  
+  <!-- 입력 매개변수는 #{프로퍼티명}으로 표시  -->
+  <insert id="insert" parameterType="project">
+    insert into PROJECTS(PNAME,CONTENT,STA_DATE,END_DATE,STATE,CRE_DATE,TAGS,PNO)
+    values (#{title},#{content},#{startDate},#{endDate},0,sysdate,#{tags},PROJECTS_PNO.nextval)
+  </insert>
+  
+  
+  <!-- project 객체안에 입력 매개 변수들이 있음 -->
+  <select id="selectOne" parameterType="int" resultMap="projectResultMap">
+    select PNO, PNAME, CONTENT, STA_DATE, END_DATE, STATE, CRE_DATE, TAGS
+    from PROJECTS 
+    where PNO=#{value}
+  </select>
+  
+  <update id="update" parameterType="map"> <!-- set절의 끝에 콤마(,)가 있으면 제거합니다. 
+  											따라서 map에 tags를 포함하지 않아도 생성되는 sql의 마지막 콤마를 자동으로 지워주기 때문에 문제없다. -->
+    update PROJECTS 
+    <set>
+      <if test="title != null">PNAME=#{title},</if>
+      <if test="content != null">CONTENT=#{content},</if>
+      <if test="startDate != null">STA_DATE=#{startDate},</if>
+      <if test="endDate != null">END_DATE=#{endDate},</if>
+      <if test="state != null">STATE=#{state},</if>
+      <if test="tags != null">TAGS=#{tags}</if>
+    </set>
+    where PNO=#{no}
+  </update>
+  
+  
+  
+    <!-- 기본타입인 경우 -->
+  <delete id="delete" parameterType="int">
+    delete from PROJECTS 
+    where PNO=#{value}
+  </delete>
+</mapper>

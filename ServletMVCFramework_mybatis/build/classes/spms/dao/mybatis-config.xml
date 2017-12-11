@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+<!-- mybatis 설정 파일의 루트 엘리먼트 -->
+<configuration>
+    <!-- 데이터베이스 연결 정보처럼 자주 변경될 수 있는 값은 mybatis 설정 파일에 두지 않고 보통 프로퍼티 파일에 저장한다. -->
+    <!-- 그리고 그 프로퍼티 파일을 로딩하려면 properties 태그를 사용한다. 다른경로에 있다면 url 속성을 사용. -->
+    <!-- dataSource type="JNDI"로 설정했기 때문에 아래 소스는 주석처리했다. -->
+    <!-- <properties resource="spms/dao/db.properties" /> -->
+ 
+    <!-- 로그 출력 기능을 킨다. -->
+    <settings>
+        <!-- name속성과 로그출력기 이름 설정  -->
+        <setting name="logImpl" value="LOG4J" />
+    </settings>
+
+
+    <!-- SQL 맵퍼파일에서 parameterType, resultType을 지정할 때 별명을 사용할수 있다. -->
+    <typeAliases>
+        <typeAlias type="spms.vo.Project" alias="project" />
+        <typeAlias type="spms.vo.Member" alias="member" />
+    </typeAliases>
+ 
+    <!-- 데이터베이스 환경 정보를 설정할 때 사용하는 태그이고 이 태그를 이용하면 여러 개의 DB접속 정보를 설정할 수 있다. -->
+    <!-- 설정된 DB 정보 중에서 하나를 선택할 때는 default 속성을 사용합니다. -->
+    <environments default="development">
+        <!-- 트랜잭션 관리 및 데이터 소스를 설정하는 태그이다. -->
+        <environment id="development">
+            <!-- mybatis의 트랜잭션 관리 방식 2가지 JDBC, MANAGED -->
+            <!-- JDBC :직접 JDBC의 커밋, 롤백 기능을 사용하여 mybatis 자체에서 트랜잭션을 관리 -->
+            <!-- MANAGED : 서버의 트랜잭션 관리 기능을 이용. 즉 Java EE 어플리케이션 서버(JBoss, WebLogic, WebSphere 등)나
+             	서블릿 컨테이너(톰캣 서버 등)에서 트랜잭션을 처리-->
+            <transactionManager type="JDBC" />
+             
+            <!-- 프로퍼티는 "개별 프로퍼티 설정-프로퍼티 파일에 정의된 것 외에 추가로 정의 할 수 있다. p604", "프로퍼티 값 참조" 방법이 있다. -->
+            <!-- 프로퍼티 값 참조 / 프로퍼티 파일에 저장된 값은 ${} 형식으로 찹조한다. -->
+            <!-- 데이터 소스 설정 UNPOOLED, POOLED, JNDI -->
+            <!-- UNPOOLED : DB 커넥션을 요청할 때마다 매번 커넥션 객체를 생성한다. 높은 성능을 요구하지 않는 단순한 어플리케이션에 적합하다 -->
+            <!-- POOLED : 미리 DB 커넥션 객체를 생성해 두고, 요청하면 즉시 반환한다. 데이터베이스에 연결하는 과정, 
+            		즉 연결을 초기화하고 사용자를 인증하는 과정이 없기 때문에 속도가 빠르다.
+            		한마디로 mybatis 자체의 DB 커넥션풀을 사용하겠다는 의미이다.-->
+            <!-- JNDI : Java EE 어플리케이션 서버나 서블릿 컨테이너에서 제공하는 데이터 소스를 사용한다.-->
+            
+            <!-- 1번 -->
+            <!-- <dataSource type="POOLED">
+                <property name="driver" value="${driver}" />
+                <property name="url" value="${url}" />
+                <property name="username" value="${username}" />
+                <property name="password" value="${password}" />
+            </dataSource> -->
+            
+            
+            <!-- 2번 -->
+            <dataSource type="JNDI">
+                <property name="data_source" value="java:comp/env/jdbc/studydb"/>
+            </dataSource>
+        </environment>
+    </environments>
+ 
+    <!-- SQL 맵퍼 파일의 경로를 설정할 때 사용 -->
+    <!--다른경로에 있다면 url 속성을 사용  
+    	ex) <mapper url="fileL//c:/dao....xml"/>  -->
+  <mappers>
+    <mapper resource="spms/dao/MySqlProjectDao.xml"/>
+    <mapper resource="spms/dao/MySqlMemberDao.xml"/>
+  </mappers>
+</configuration>
