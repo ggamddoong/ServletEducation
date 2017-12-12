@@ -1,6 +1,6 @@
 package spms.dao;
 
-// ì• ë…¸í…Œì´ì…˜ ì ìš© 
+// ¾Ö³ëÅ×ÀÌ¼Ç Àû¿ë 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -116,7 +116,7 @@ public class MySqlMemberDao implements MemberDao {
         .setCreatedDate(rs.getDate("CRE_DATE"));
 
       } else {
-        throw new Exception("í•´ë‹¹ ë²ˆí˜¸ì˜ íšŒì›ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+        throw new Exception("ÇØ´ç ¹øÈ£ÀÇ È¸¿øÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
       }
 
     } catch (Exception e) {

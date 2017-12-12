@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import spms.annotation.Component;
 
-// Annotation ì ìš©
+// Annotation Àû¿ë
 @Component("/auth/logout.do")
 public class LogOutController implements Controller {
   @Override

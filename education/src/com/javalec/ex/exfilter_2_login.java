@@ -42,10 +42,10 @@ import javax.servlet.http.HttpSession;
 	            RequestDispatcher rd = request.getRequestDispatcher("/ex7");
 	            rd.forward(req, resp);
 	        } else {
-	            chain.doFilter(req, resp); //chain.doFilter() : ë‹¤ìŒí•„í„°ë¥¼ í˜¸ì¶œí•œë‹¤. ì—†ìœ¼ë©´ servlet/jsp
+	            chain.doFilter(req, resp); //chain.doFilter() : ´ÙÀ½ÇÊÅÍ¸¦ È£ÃâÇÑ´Ù. ¾øÀ¸¸é servlet/jsp
 	            
 	            ServletContext context = config.getServletContext();
-	            context.log("ë¡œê·¸ì¸ filter í›„ì†");
+	            context.log("·Î±×ÀÎ filter ÈÄ¼Ó");
 	        }
 	    }
 

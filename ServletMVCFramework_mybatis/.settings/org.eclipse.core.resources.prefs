@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/spms/annotation/Component.java=UTF-8
+encoding//src/spms/bind/DataBinding.java=UTF-8
+encoding//src/spms/bind/ServletRequestDataBinder.java=UTF-8
+encoding//src/spms/context/ApplicationContext.java=UTF-8

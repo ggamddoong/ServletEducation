@@ -3,14 +3,14 @@ package spms.vo;
 import java.util.Date;
 
 public class Project {
-  protected int     no; //í”„ë¡œì íŠ¸ì¼ë ¨ë²ˆí˜¸
-  protected String  title; //í”„ë¡œì íŠ¸ëª…
-  protected String  content; //ì„¤ëª…
-  protected Date    startDate; //ì‹œì‘ì¼
-  protected Date    endDate; //ì¢…ë£Œì¼
-  protected int     state; //ìƒíƒœ
-  protected Date    createdDate; //ìƒì„±ì¼
-  protected String  tags; //íƒœê·¸ë“¤
+  protected int     no; //ÇÁ·ÎÁ§Æ®ÀÏ·Ã¹øÈ£
+  protected String  title; //ÇÁ·ÎÁ§Æ®¸í
+  protected String  content; //¼³¸í
+  protected Date    startDate; //½ÃÀÛÀÏ
+  protected Date    endDate; //Á¾·áÀÏ
+  protected int     state; //»óÅÂ
+  protected Date    createdDate; //»ı¼ºÀÏ
+  protected String  tags; //ÅÂ±×µé
   
   public int getNo() {
     return no;

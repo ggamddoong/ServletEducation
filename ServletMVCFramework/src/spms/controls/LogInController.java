@@ -9,11 +9,11 @@ import spms.bind.DataBinding;
 import spms.dao.MemberDao;
 import spms.vo.Member;
 
-// Annotation ì ìš©
+// Annotation Àû¿ë
 @Component("/auth/login.do")
 public class LogInController implements Controller, DataBinding {
-	//í´ë¼ì´ì–¸íŠ¸ê°€ ë³´ë‚¸ ë°ì´í„°ë¥¼ í”„ëŸ°íŠ¸ ì»¨íŠ¸ë¡¤ëŸ¬ë¡œë¶€í„° ë°›ì•„ì•¼ í•˜ê¸° ë•Œë¬¸ì— 
-	//DataBinding ì¸í„°í˜ì´ìŠ¤ êµ¬í˜„	
+	//Å¬¶óÀÌ¾ğÆ®°¡ º¸³½ µ¥ÀÌÅÍ¸¦ ÇÁ·±Æ® ÄÁÆ®·Ñ·¯·ÎºÎÅÍ ¹Ş¾Æ¾ß ÇÏ±â ¶§¹®¿¡ 
+	//DataBinding ÀÎÅÍÆäÀÌ½º ±¸Çö	
   MemberDao memberDao;
   
   public LogInController setMemberDao(MemberDao memberDao) {
@@ -31,10 +31,10 @@ public class LogInController implements Controller, DataBinding {
   public String execute(Map<String, Object> model) throws Exception {
     Member loginInfo = (Member)model.get("loginInfo");
     
-    if (loginInfo.getEmail() == null) { // ì…ë ¥í¼ì„ ìš”ì²­í•  ë•Œ
+    if (loginInfo.getEmail() == null) { // ÀÔ·ÂÆûÀ» ¿äÃ»ÇÒ ¶§
       return "/auth/LogInForm.jsp";
       
-    } else { // íšŒì› ë“±ë¡ì„ ìš”ì²­í•  ë•Œ
+    } else { // È¸¿ø µî·ÏÀ» ¿äÃ»ÇÒ ¶§
       Member member = memberDao.exist(
           loginInfo.getEmail(), 
           loginInfo.getPassword());

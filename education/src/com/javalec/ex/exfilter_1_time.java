@@ -20,13 +20,13 @@ public class exfilter_1_time implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse resp,
             FilterChain chain) throws IOException, ServletException {
-        //request í•„í„°
+        //request ÇÊÅÍ
         long start = System.currentTimeMillis();
 
-        //ë‹¤ìŒí•„í„° ë˜ëŠ” í•„í„°ì˜ ë§ˆì§€ë§‰ì´ë©´ ì„œë¸”ë¦¿(JSP)ì‹¤í–‰
-        chain.doFilter(req, resp); //chain.doFilter() : ë‹¤ìŒí•„í„°ë¥¼ í˜¸ì¶œí•œë‹¤. ì—†ìœ¼ë©´ servlet/jsp
+        //´ÙÀ½ÇÊÅÍ ¶Ç´Â ÇÊÅÍÀÇ ¸¶Áö¸·ÀÌ¸é ¼­ºí¸´(JSP)½ÇÇà
+        chain.doFilter(req, resp); //chain.doFilter() : ´ÙÀ½ÇÊÅÍ¸¦ È£ÃâÇÑ´Ù. ¾øÀ¸¸é servlet/jsp
 
-        //response í•„í„°
+        //response ÇÊÅÍ
         long end = System.currentTimeMillis();
         String uri;
         if(req instanceof HttpServletRequest) {
@@ -34,7 +34,7 @@ public class exfilter_1_time implements Filter {
             uri = request.getRequestURI();
 
             ServletContext context = config.getServletContext();
-            context.log(uri + " ì‹¤í–‰ì‹œê°„:" + (end-start)+"ms ì‹œê°„ì´ ì†Œìš”ë¨");
+            context.log(uri + " ½ÇÇà½Ã°£:" + (end-start)+"ms ½Ã°£ÀÌ ¼Ò¿äµÊ");
         }
     }
     public void destroy(){}

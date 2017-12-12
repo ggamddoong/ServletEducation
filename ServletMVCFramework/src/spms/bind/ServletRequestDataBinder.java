@@ -7,38 +7,38 @@ import java.util.Set;
 import javax.servlet.ServletRequest;
 
 public class ServletRequestDataBinder {
-	//ì´ í´ë˜ìŠ¤ëŠ” ì™¸ë¶€ì—ì„œ í˜¸ì¶œí•  ìˆ˜ ìˆëŠ” í•œ ê°œì˜ public ë©”ì„œë“œì™€ ë‚´ë¶€ì—ì„œ ì‚¬ìš©í•  ì„¸ê°œì˜ private ë©”ì„œë“œë¥¼ ê°€ì§€ê³ ìˆë‹¤.
-	//ëª¨ë‘ static
+	//ÀÌ Å¬·¡½º´Â ¿ÜºÎ¿¡¼­ È£ÃâÇÒ ¼ö ÀÖ´Â ÇÑ °³ÀÇ public ¸Ş¼­µå¿Í ³»ºÎ¿¡¼­ »ç¿ëÇÒ ¼¼°³ÀÇ private ¸Ş¼­µå¸¦ °¡Áö°íÀÖ´Ù.
+	//¸ğµÎ static
   public static Object bind(
       ServletRequest request, Class<?> dataType, String dataName) 
       throws Exception {
-    if (isPrimitiveType(dataType)) { //dataTypeì´ ê¸°ë³¸íƒ€ì…ì¸ì§€ ê²€ì‚¬, ê¸°ë³¸íƒ€ì…ì´ë©´ ì¦‰ì‹œ ê°ì²´ ìƒì„±í•˜ì—¬ ë°˜í™˜í•¨
-    	//ê¸°ë³¸íƒ€ì…ì„ ì¶”ê°€í•˜ë ¤ë©´ isPrimitiveType í•¨ìˆ˜ì•ˆì—ì„œ ë” ì¶”ê°€ (ì˜ˆ: byte, short)
+    if (isPrimitiveType(dataType)) { //dataTypeÀÌ ±âº»Å¸ÀÔÀÎÁö °Ë»ç, ±âº»Å¸ÀÔÀÌ¸é Áï½Ã °´Ã¼ »ı¼ºÇÏ¿© ¹İÈ¯ÇÔ
+    	//±âº»Å¸ÀÔÀ» Ãß°¡ÇÏ·Á¸é isPrimitiveType ÇÔ¼ö¾È¿¡¼­ ´õ Ãß°¡ (¿¹: byte, short)
       return createValueObject(dataType, request.getParameter(dataName));
-      //createValueObject()ëŠ” ê¸°ë³¸ íƒ€ì…ì˜ ê°ì²´ë¥¼ ìƒì„±í•  ë•Œ í˜¸ì¶œ
+      //createValueObject()´Â ±âº» Å¸ÀÔÀÇ °´Ã¼¸¦ »ı¼ºÇÒ ¶§ È£Ãâ
     }
     
     Set<String> paramNames = request.getParameterMap().keySet();
-    //request.getParameterMap()ëŠ” ë§¤ê°œë³€ìˆ˜(í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë„˜ì–´ì˜¨ ê°’)ì˜ ì´ë¦„ê³¼ ê°’ì„ ë§µ ê°ì²´ì— ë‹´ì•„ì„œ ë°˜í™˜í•œë‹¤.
-    //ìš°ë¦¬ê°€ í•„ìš”í•œ ê²ƒì€ ë§¤ê°œë³€ìˆ˜ì˜ ì´ë¦„ì´ê¸° ë•Œë¬¸ì— Mapì˜ keySey()ì„ í˜¸ì¶œ
+    //request.getParameterMap()´Â ¸Å°³º¯¼ö(Å¬¶óÀÌ¾ğÆ®¿¡¼­ ³Ñ¾î¿Â °ª)ÀÇ ÀÌ¸§°ú °ªÀ» ¸Ê °´Ã¼¿¡ ´ã¾Æ¼­ ¹İÈ¯ÇÑ´Ù.
+    //¿ì¸®°¡ ÇÊ¿äÇÑ °ÍÀº ¸Å°³º¯¼öÀÇ ÀÌ¸§ÀÌ±â ¶§¹®¿¡ MapÀÇ keySey()À» È£Ãâ
     Object dataObject = dataType.newInstance(); 
-    //newInstance()ëŠ” new ì—°ì‚°ìë¥¼ ì‚¬ìš©í•˜ì§€ ì•Šê³ ë„ ê°ì²´ ìƒì„±
+    //newInstance()´Â new ¿¬»êÀÚ¸¦ »ç¿ëÇÏÁö ¾Ê°íµµ °´Ã¼ »ı¼º
     Method m = null;
     
     for (String paramName : paramNames) {
-    	//ë°ì´í„° íƒ€ì… í´ë˜ìŠ¤ì—ì„œ ë§¤ê°œë³€ìˆ˜ ì´ë¦„ê³¼ ì¼ì¹˜í•˜ëŠ” í”„ë¡œí¼í‹°(ì…‹í„° ë©”ì„œë“œ)ë¥¼ì°¾ìŠµë‹ˆë‹¤.
+    	//µ¥ÀÌÅÍ Å¸ÀÔ Å¬·¡½º¿¡¼­ ¸Å°³º¯¼ö ÀÌ¸§°ú ÀÏÄ¡ÇÏ´Â ÇÁ·ÎÆÛÆ¼(¼ÂÅÍ ¸Ş¼­µå)¸¦Ã£½À´Ï´Ù.
       
     	m = findSetter(dataType, paramName);
-    	//ë°ì´í„° íƒ€ì…(Class)ê³¼ ë§¤ê°œë³€ìˆ˜ ì´ë¦„(String)ì„ ì£¼ë©´ ì…‹í„° ë©”ì„œë“œë¥¼ ì°¾ì•„ì„œ ë°˜í™˜í•©ë‹ˆë‹¤.
-    	//ì…‹í„° ë©”ì„œë“œë¥¼ ì°¾ì•˜ìœ¼ë©´ ì´ì „ì— ìƒì„±í•œ dataObjectì— ëŒ€í•´ í˜¸ì¶œí•©ë‹ˆë‹¤.
+    	//µ¥ÀÌÅÍ Å¸ÀÔ(Class)°ú ¸Å°³º¯¼ö ÀÌ¸§(String)À» ÁÖ¸é ¼ÂÅÍ ¸Ş¼­µå¸¦ Ã£¾Æ¼­ ¹İÈ¯ÇÕ´Ï´Ù.
+    	//¼ÂÅÍ ¸Ş¼­µå¸¦ Ã£¾ÒÀ¸¸é ÀÌÀü¿¡ »ı¼ºÇÑ dataObject¿¡ ´ëÇØ È£ÃâÇÕ´Ï´Ù.
       if (m != null) {
         m.invoke(dataObject, createValueObject(m.getParameterTypes()[0], 
             request.getParameter(paramName)));
-        //createValueObject()ë©”ì„œë“œëŠ” ì•ì—ì„œ ì„¤ëª…í•œ ë°”ì™€ ê°™ì´, 
-        //ìš”ì²­ ë§¤ê°œë³€ìˆ˜ì˜ ê°’ì„ ê°€ì§€ê³  ê¸°ë³¸ íƒ€ì…ì˜ ê°ì²´ë¥¼ ë§Œë“¤ì–´ ì¤ë‹ˆë‹¤.
-        //ì´ë ‡ê²Œ ìš”ì²­ ë§¤ê°œë³€ìˆ˜ì˜ ê°œìˆ˜ë§Œí¼ ë°˜ë³µí•˜ë©´ì„œ, ë°ì´í„° ê°ì²´(ì˜ˆ:Member)ì— ëŒ€í•´ ê°’ì„ í• ë‹¹í•©ë‹ˆë‹¤.
+        //createValueObject()¸Ş¼­µå´Â ¾Õ¿¡¼­ ¼³¸íÇÑ ¹Ù¿Í °°ÀÌ, 
+        //¿äÃ» ¸Å°³º¯¼öÀÇ °ªÀ» °¡Áö°í ±âº» Å¸ÀÔÀÇ °´Ã¼¸¦ ¸¸µé¾î Áİ´Ï´Ù.
+        //ÀÌ·¸°Ô ¿äÃ» ¸Å°³º¯¼öÀÇ °³¼ö¸¸Å­ ¹İº¹ÇÏ¸é¼­, µ¥ÀÌÅÍ °´Ã¼(¿¹:Member)¿¡ ´ëÇØ °ªÀ» ÇÒ´çÇÕ´Ï´Ù.
         
-        //Method.invoke() <- í•´ë‹¹ ë©”ì„œë“œë¥¼ í˜¸ì¶œ
+        //Method.invoke() <- ÇØ´ç ¸Ş¼­µå¸¦ È£Ãâ
       }
     }
     return dataObject;
@@ -57,9 +57,9 @@ public class ServletRequestDataBinder {
   }
   
   private static Object createValueObject(Class<?> type, String value) {
-	  //ê¸°ë³¸ íƒ€ì…ì˜ ê²½ìš° ì…‹í„° ë©”ì„œë“œê°€ ì—†ê¸° ë•Œë¬¸ì— ê°’ì„ í• ë‹¹ã…ã„¹ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
-	  //ë³´í†µ ìƒì„±ìë¥¼ í˜¸ì¶œí•  ë•Œ ê°’ì„ í• ë‹¹í•©ë‹ˆë‹¤. ê·¸ë˜ì„œ createValueObject()ë¥¼ ë§Œë“  ê²ƒì…ë‹ˆë‹¤.
-	  //ì´ ë©”ì„œë“œëŠ” ì…‹í„°ë¡œ ê°’ì„ í• ë‹¹í•  ìˆ˜ ì—†ëŠ” ê¸°ë³¸ íƒ€ì…ì— ëŒ€í•´ ê°ì²´ë¥¼ ìƒì„±í•˜ëŠ” ë©”ì„œë“œì…ë‹ˆë‹¤.
+	  //±âº» Å¸ÀÔÀÇ °æ¿ì ¼ÂÅÍ ¸Ş¼­µå°¡ ¾ø±â ¶§¹®¿¡ °ªÀ» ÇÒ´ç¤¾¤© ¼ö ¾ø½À´Ï´Ù.
+	  //º¸Åë »ı¼ºÀÚ¸¦ È£ÃâÇÒ ¶§ °ªÀ» ÇÒ´çÇÕ´Ï´Ù. ±×·¡¼­ createValueObject()¸¦ ¸¸µç °ÍÀÔ´Ï´Ù.
+	  //ÀÌ ¸Ş¼­µå´Â ¼ÂÅÍ·Î °ªÀ» ÇÒ´çÇÒ ¼ö ¾ø´Â ±âº» Å¸ÀÔ¿¡ ´ëÇØ °´Ã¼¸¦ »ı¼ºÇÏ´Â ¸Ş¼­µåÀÔ´Ï´Ù.
     if (type.getName().equals("int") || type == Integer.class) {
       return new Integer(value);
     } else if (type.getName().equals("float") || type == Float.class) {
@@ -83,12 +83,12 @@ public class ServletRequestDataBinder {
     String propName = null;
     for (Method m : methods) {
       if (!m.getName().startsWith("set")) continue;
-      //ì…‹í„° ë©”ì„œë“œì— ëŒ€í•´ì„œë§Œ ì‘ì—…ì„ ìˆ˜í–‰í•˜ê¸° ë•Œë¬¸ì— ë©”ì„œë“œ ì´ë¦„ì´ setìœ¼ë¡œ ì‹œì‘í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ë¬´ì‹œ.
+      //¼ÂÅÍ ¸Ş¼­µå¿¡ ´ëÇØ¼­¸¸ ÀÛ¾÷À» ¼öÇàÇÏ±â ¶§¹®¿¡ ¸Ş¼­µå ÀÌ¸§ÀÌ setÀ¸·Î ½ÃÀÛÇÏÁö ¾Ê´Â´Ù¸é ¹«½Ã.
       
       propName = m.getName().substring(3);
       if (propName.toLowerCase().equals(name.toLowerCase())) {
-    	  //ëŒ€ì†Œë¬¸ìë¥¼ êµ¬ë¶„í•˜ì§€ ì•Šê¸°ìœ„í•´ ëª¨ë‘ ì†Œë¬¸ìë¡œ ë°”ê¾¼ ë‹¤ìŒì— ë¹„êµ
-    	  //ê·¸ë¦¬ê³  ì…‹í„° ë©”ì„œë“œì˜ ì´ë¦„ì—ì„œ "set"ì€ ì œì™¸í•˜ê³  ë¦¬í„´.
+    	  //´ë¼Ò¹®ÀÚ¸¦ ±¸ºĞÇÏÁö ¾Ê±âÀ§ÇØ ¸ğµÎ ¼Ò¹®ÀÚ·Î ¹Ù²Û ´ÙÀ½¿¡ ºñ±³
+    	  //±×¸®°í ¼ÂÅÍ ¸Ş¼­µåÀÇ ÀÌ¸§¿¡¼­ "set"Àº Á¦¿ÜÇÏ°í ¸®ÅÏ.
         return m;
       }
     }

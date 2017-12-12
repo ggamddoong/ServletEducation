@@ -1,6 +1,6 @@
 package spms.listeners;
  
-// SqlSessionFactory ê°ì²´ ì¤€ë¹„
+// SqlSessionFactory °´Ã¼ ÁØºñ
 import java.io.InputStream;
  
 import javax.servlet.ServletContext;
@@ -20,39 +20,39 @@ public class ContextLoaderListener implements ServletContextListener {
  
     public static ApplicationContext getApplicationContext() {
 
-  	  //ContextLoaderListenerì—ì„œ ë§Œë“  ApplicationContextê°ì²´ë¥¼ ì–»ì„ ë•Œ ì‚¬ìš©.(í”„ëŸ°íŠ¸ ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ì‚¬ìš©)
-  	  //staticìœ¼ë¡œ ì„ ì–¸    	
+  	  //ContextLoaderListener¿¡¼­ ¸¸µç ApplicationContext°´Ã¼¸¦ ¾òÀ» ¶§ »ç¿ë.(ÇÁ·±Æ® ÄÁÆ®·Ñ·¯¿¡¼­ »ç¿ë)
+  	  //staticÀ¸·Î ¼±¾ğ    	
         return applicationContext;
     }
  
     @Override
     public void contextInitialized(ServletContextEvent event) {
         try {
-            //ApplicationContext ê°ì²´ë¥¼ ìƒì„±í•  ë•Œ ê¸°ë³¸ ìƒì„±ìë¥¼ í˜¸ì¶œí•˜ë„ë¡ ì½”ë“œë¥¼ ë³€ê²½
+            //ApplicationContext °´Ã¼¸¦ »ı¼ºÇÒ ¶§ ±âº» »ı¼ºÀÚ¸¦ È£ÃâÇÏµµ·Ï ÄÚµå¸¦ º¯°æ
             applicationContext = new ApplicationContext();
  
-            //SqlSessionFactoryBuilder í´ë˜ìŠ¤ì˜ build()ë¥¼ í˜¸ì¶œí•´ì•¼ë§Œ SqlSessionFactory ê°ì²´ë¥¼ ìƒì„±í•  ìˆ˜ ìˆë‹¤.
+            //SqlSessionFactoryBuilder Å¬·¡½ºÀÇ build()¸¦ È£ÃâÇØ¾ß¸¸ SqlSessionFactory °´Ã¼¸¦ »ı¼ºÇÒ ¼ö ÀÖ´Ù.
             String resource = "spms/dao/mybatis-config.xml";
-            //mybatisì—ì„œ ì œê³µí•˜ëŠ” Resources í´ë˜ìŠ¤ë¥¼ ì‚¬ìš©í•˜ë©´ ìë°” í´ë˜ìŠ¤ ê²½ë¡œì— ìˆëŠ” íŒŒì¼ì˜ ì…ë ¥ ìŠ¤íŠ¸ë¦¼ì„ ì‰½ê²Œ ì–»ì„ ìˆ˜ ìˆë‹¤.
+            //mybatis¿¡¼­ Á¦°øÇÏ´Â Resources Å¬·¡½º¸¦ »ç¿ëÇÏ¸é ÀÚ¹Ù Å¬·¡½º °æ·Î¿¡ ÀÖ´Â ÆÄÀÏÀÇ ÀÔ·Â ½ºÆ®¸²À» ½±°Ô ¾òÀ» ¼ö ÀÖ´Ù.
             InputStream inputStream = Resources.getResourceAsStream(resource);
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
  
-            //SqlSessionFactory ê°ì²´ë¥¼ ApplicationContextì— ë“±ë¡í•œë‹¤.
+            //SqlSessionFactory °´Ã¼¸¦ ApplicationContext¿¡ µî·ÏÇÑ´Ù.
             applicationContext.addBean("sqlSessionFactory", sqlSessionFactory);
  
-            //í”„ë¡œí¼í‹° íŒŒì¼(aqpplication-context.properties) ê²½ë¡œë¥¼ ì•Œì•„ë‚´ê¸°
-            //í”„ë¡œí¼í‹° íŒŒì¼ì˜ ì´ë¦„ê³¼ ê²½ë¡œ ì •ë³´ë¥¼ web.xmlíŒŒì¼ë¡œë¶€í„° ì½ì–´ ì˜¤ê²Œ ì²˜ë¦¬í•¨ (getInitParameter)
-            //web.xmlì— context-paramìœ¼ë¡œ contextconfigLocation ì •ì˜            
+            //ÇÁ·ÎÆÛÆ¼ ÆÄÀÏ(aqpplication-context.properties) °æ·Î¸¦ ¾Ë¾Æ³»±â
+            //ÇÁ·ÎÆÛÆ¼ ÆÄÀÏÀÇ ÀÌ¸§°ú °æ·Î Á¤º¸¸¦ web.xmlÆÄÀÏ·ÎºÎÅÍ ÀĞ¾î ¿À°Ô Ã³¸®ÇÔ (getInitParameter)
+            //web.xml¿¡ context-paramÀ¸·Î contextconfigLocation Á¤ÀÇ            
             ServletContext sc = event.getServletContext();
             String propertiesPath = sc.getRealPath(sc.getInitParameter("contextConfigLocation"));
  
-            //í”„ë¡œí¼í‹° íŒŒì¼ì˜ ë‚´ìš©ì— ë”°ë¼ ê°ì²´ë¥¼ ìƒì„±í•˜ë„ë¡ ApplicationContextì— ì§€ì‹œí•œë‹¤.
+            //ÇÁ·ÎÆÛÆ¼ ÆÄÀÏÀÇ ³»¿ë¿¡ µû¶ó °´Ã¼¸¦ »ı¼ºÇÏµµ·Ï ApplicationContext¿¡ Áö½ÃÇÑ´Ù.
             applicationContext.prepareObjectsByProperties(propertiesPath);
  
-            //@Component ì–´ë…¸í…Œì´ì…˜ì´ ë¶™ì€ í´ë˜ìŠ¤ë¥¼ ì°¾ì•„ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
+            //@Component ¾î³ëÅ×ÀÌ¼ÇÀÌ ºÙÀº Å¬·¡½º¸¦ Ã£¾Æ °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
             applicationContext.prepareObjectsByAnnotation("");
  
-            //ApplicationContextì—ì„œ ê´€ë¦¬í•˜ëŠ” ê°ì²´ë“¤ì„ ì¡°ì‚¬í•˜ì—¬ ì˜ì¡´ ê°ì²´ë¥¼ ì£¼ì…í•œë‹¤.
+            //ApplicationContext¿¡¼­ °ü¸®ÇÏ´Â °´Ã¼µéÀ» Á¶»çÇÏ¿© ÀÇÁ¸ °´Ã¼¸¦ ÁÖÀÔÇÑ´Ù.
             applicationContext.injectDependency();
  
         } catch (Throwable e) {

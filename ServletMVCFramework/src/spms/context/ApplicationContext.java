@@ -13,12 +13,12 @@ import org.reflections.Reflections;
 
 import spms.annotation.Component;
 
-// í”„ë¡œí¼í‹° íŒŒì¼ ë° ì• ë…¸í…Œì´ì…˜ì„ ì´ìš©í•œ ê°ì²´ ì¤€ë¹„
+// ÇÁ·ÎÆÛÆ¼ ÆÄÀÏ ¹× ¾Ö³ëÅ×ÀÌ¼ÇÀ» ÀÌ¿ëÇÑ °´Ã¼ ÁØºñ
 public class ApplicationContext {
   Hashtable<String,Object> objTable = new Hashtable<String,Object>();
-  //í”„ë¡œí¼í‹°ì— ì„¤ì •ëœ ëŒ€ë¡œ ê°ì²´ë¥¼ ì¤€ë¹„í•˜ë©´, ê°ì²´ë¥¼ ì €ì¥í•  ë³´ê´€ì†Œê°€ í•„ìš”í•œë° ì´ë¥¼ ìœ„í•´ í•´ì‹œ í…Œì´ë¸”ì„ ì¤€ë¹„
+  //ÇÁ·ÎÆÛÆ¼¿¡ ¼³Á¤µÈ ´ë·Î °´Ã¼¸¦ ÁØºñÇÏ¸é, °´Ã¼¸¦ ÀúÀåÇÒ º¸°ü¼Ò°¡ ÇÊ¿äÇÑµ¥ ÀÌ¸¦ À§ÇØ ÇØ½Ã Å×ÀÌºíÀ» ÁØºñ
 
-  //ë˜í•œ, ì•„ë˜ì²˜ëŸ¼ í•´ì‹œ í…Œì´ë¸”ì—ì„œ ê°ì²´ë¥¼ êº¼ë‚¼ ë©”ì„œë“œë„ ì •ì˜
+  //¶ÇÇÑ, ¾Æ·¡Ã³·³ ÇØ½Ã Å×ÀÌºí¿¡¼­ °´Ã¼¸¦ ²¨³¾ ¸Ş¼­µåµµ Á¤ÀÇ
   public Object getBean(String key) {
     return objTable.get(key);
   }
@@ -28,20 +28,20 @@ public class ApplicationContext {
     props.load(new FileReader(propertiesPath));
     
     prepareObjects(props); //Properties
-    prepareAnnotationObjects(); //ì–´ë…¸í…Œì´ì…˜ìœ¼ë¡œ ì •ì˜ëœ í´ë˜ìŠ¤ë¥¼ ì¸ìŠ¤í„´ìŠ¤í™”
-    injectDependency(); //ê°ì²´ê°€ í•„ìš”ë¡œ í•˜ëŠ” ì˜ì¡´ê°ì²´ë¥¼ í• ë‹¹í•´ì£¼ëŠ” í•¨ìˆ˜
+    prepareAnnotationObjects(); //¾î³ëÅ×ÀÌ¼ÇÀ¸·Î Á¤ÀÇµÈ Å¬·¡½º¸¦ ÀÎ½ºÅÏ½ºÈ­
+    injectDependency(); //°´Ã¼°¡ ÇÊ¿ä·Î ÇÏ´Â ÀÇÁ¸°´Ã¼¸¦ ÇÒ´çÇØÁÖ´Â ÇÔ¼ö
   }
   
   private void prepareAnnotationObjects() 
       throws Exception{
-    Reflections reflector = new Reflections("");//ReflectionsëŠ” ì˜¤í”„ì†ŒìŠ¤ë¼ì´ë¸ŒëŸ¬ë¦¬,
-    //ìë°”ì—ì„œ ì œê³µí•˜ëŠ” ë¦¬í”Œë™ì…˜ APIë³´ë‹¤ ë” ì‰½ê²Œ í´ë˜ìŠ¤ë¥¼ ì°¾ê±°ë‚˜ í´ë˜ìŠ¤ ì •ë³´ë¥¼ ì¶”ì¶œ 
-    //"" ë¹ˆë¬¸ìì—´ ë§¤ê°œë³€ìˆ˜ëŠ” ìë°” classpathì— ìˆëŠ” ëª¨ë“  íŒ¨í‚¤ì§€ ê²€ìƒ‰
-    //ë§Œì•½ ë§¤ê°œë³€ìˆ˜ê°€ miniMVCFrameworkì˜€ë‹¤ë©´  miniMVCFramework íŒ¨í‚¤ì§€ ë° ê·¸ í•˜ìœ„ íŒ¨í‚¤ì§€ê¹Œì§€ ëª¨ë‘ ë’¤ì§
+    Reflections reflector = new Reflections("");//Reflections´Â ¿ÀÇÁ¼Ò½º¶óÀÌºê·¯¸®,
+    //ÀÚ¹Ù¿¡¼­ Á¦°øÇÏ´Â ¸®ÇÃ·¢¼Ç APIº¸´Ù ´õ ½±°Ô Å¬·¡½º¸¦ Ã£°Å³ª Å¬·¡½º Á¤º¸¸¦ ÃßÃâ 
+    //"" ºó¹®ÀÚ¿­ ¸Å°³º¯¼ö´Â ÀÚ¹Ù classpath¿¡ ÀÖ´Â ¸ğµç ÆĞÅ°Áö °Ë»ö
+    //¸¸¾à ¸Å°³º¯¼ö°¡ miniMVCFramework¿´´Ù¸é  miniMVCFramework ÆĞÅ°Áö ¹× ±× ÇÏÀ§ ÆĞÅ°Áö±îÁö ¸ğµÎ µÚÁü
     
     Set<Class<?>> list = reflector.getTypesAnnotatedWith(Component.class);
-    //@Componetn ì–´ë…¸í…Œì´ì…”ë‹ ë¶™ì€ í´ë˜ìŠ¤ë¥¼ ì°¾ê³ ì‹¶ìœ¼ë©´ ì•ì˜ ì½”ë“œì²˜ëŸ¼ ì–´ë…¸í…Œì´ì…˜ í´ë˜ìŠ¤ë¥¼ ì§€ì •í•˜ë©´ ë¨.
-    //ë°˜í™˜ë˜ëŠ” ê°’ì€ @Component ì–´ë…¸í…Œì´ì…”ë‹ˆ ì„ ì–¸ëœí´ë˜ìŠ¤ ëª©ë¡ì„.
+    //@Componetn ¾î³ëÅ×ÀÌ¼Å´× ºÙÀº Å¬·¡½º¸¦ Ã£°í½ÍÀ¸¸é ¾ÕÀÇ ÄÚµåÃ³·³ ¾î³ëÅ×ÀÌ¼Ç Å¬·¡½º¸¦ ÁöÁ¤ÇÏ¸é µÊ.
+    //¹İÈ¯µÇ´Â °ªÀº @Component ¾î³ëÅ×ÀÌ¼Å´Ï ¼±¾ğµÈÅ¬·¡½º ¸ñ·ÏÀÓ.
     String key = null;
     for(Class<?> clazz : list) {
       key = clazz.getAnnotation(Component.class).value();
@@ -57,8 +57,8 @@ public class ApplicationContext {
     for (Object item : props.keySet()) {
       key = (String)item;
       value = props.getProperty(key);
-      if (key.startsWith("jndi.")) { //DataSourceì²˜ëŸ¼ í†°ìº£ ì„œë²„ì—ì„œ ì œê³µí•˜ëŠ” ê°ì²´ëŠ” ApplicationContextì—ì„œ 
-    	  //ìƒì„±í•  ìˆ˜ ì—†ë‹¤. ëŒ€ì‹  InitialContextë¥¼ í†µí•´ í•´ë‹¹ ê°ì²´ë¥¼ ì–»ì–´ì•¼ í•œë‹¤.
+      if (key.startsWith("jndi.")) { //DataSourceÃ³·³ ÅèÄ¹ ¼­¹ö¿¡¼­ Á¦°øÇÏ´Â °´Ã¼´Â ApplicationContext¿¡¼­ 
+    	  //»ı¼ºÇÒ ¼ö ¾ø´Ù. ´ë½Å InitialContext¸¦ ÅëÇØ ÇØ´ç °´Ã¼¸¦ ¾ò¾î¾ß ÇÑ´Ù.
         objTable.put(key, ctx.lookup(value));
       } else {
         objTable.put(key, Class.forName(value).newInstance());
@@ -68,8 +68,8 @@ public class ApplicationContext {
   
   private void injectDependency() throws Exception {
     for (String key : objTable.keySet()) {
-      if (!key.startsWith("jndi.")) { //jndië¡œ ì‹œì‘í•˜ëŠ” ê²½ìš° í†°ìº£ ì„œë²„ì—ì„œ ì œê³µí•œ ê°ì²´ì´ë¯€ë¡œ ì˜ì¡´ ê°ì²´ ì£¼ì…í•´ì„œëŠ” ì•ˆëœë‹¤.
-        callSetter(objTable.get(key));//ë§¤ê°œë³€ìˆ˜ë¡œ ì£¼ì–´ì§„ ê°ì²´ì— ëŒ€í•´ ì…‹í„° ë©”ì„œë“œë¥¼ ì°¾ì•„ì„œ í˜¸ì¶œí•˜ëŠ” ì¼
+      if (!key.startsWith("jndi.")) { //jndi·Î ½ÃÀÛÇÏ´Â °æ¿ì ÅèÄ¹ ¼­¹ö¿¡¼­ Á¦°øÇÑ °´Ã¼ÀÌ¹Ç·Î ÀÇÁ¸ °´Ã¼ ÁÖÀÔÇØ¼­´Â ¾ÈµÈ´Ù.
+        callSetter(objTable.get(key));//¸Å°³º¯¼ö·Î ÁÖ¾îÁø °´Ã¼¿¡ ´ëÇØ ¼ÂÅÍ ¸Ş¼­µå¸¦ Ã£¾Æ¼­ È£ÃâÇÏ´Â ÀÏ
       }
     }
   }
@@ -79,8 +79,8 @@ public class ApplicationContext {
     for (Method m : obj.getClass().getMethods()) {
       if (m.getName().startsWith("set")) {
         dependency = findObjectByType(m.getParameterTypes()[0]);
-        //ì´ ë©”ì„œë“œëŠ” ì…‹í„° ë©”ì„œë“œë¥¼ í˜¸ì¶œí•  ë•Œ ë„˜ê²¨ì¤„ ì˜ì¡´ ê°ì²´ë¥¼ ì°¾ëŠ” ì¼ì„ í•œë‹¤. objTableì— ë“¤ì–´ ìˆëŠ” ê°ì²´ë¥¼ ëª¨ë‘ ë’¤ì§„ë‹¤.
-      //ë§Œì•½ ì…‹í„° ë©”ì„œë“œì˜ ë§¤ê°œë³€ìˆ˜ íƒ€ì„ê³¼ ì¼ì¹˜í•˜ëŠ” ê°ì²´ë¥¼ ì°¾ì•˜ë‹¤ë©´ ê·¸ ê°ì²´ì˜ ì£¼ì†Œë¥¼ ë¦¬í„´í•œë‹¤.
+        //ÀÌ ¸Ş¼­µå´Â ¼ÂÅÍ ¸Ş¼­µå¸¦ È£ÃâÇÒ ¶§ ³Ñ°ÜÁÙ ÀÇÁ¸ °´Ã¼¸¦ Ã£´Â ÀÏÀ» ÇÑ´Ù. objTable¿¡ µé¾î ÀÖ´Â °´Ã¼¸¦ ¸ğµÎ µÚÁø´Ù.
+      //¸¸¾à ¼ÂÅÍ ¸Ş¼­µåÀÇ ¸Å°³º¯¼ö Å¸ÀÓ°ú ÀÏÄ¡ÇÏ´Â °´Ã¼¸¦ Ã£¾Ò´Ù¸é ±× °´Ã¼ÀÇ ÁÖ¼Ò¸¦ ¸®ÅÏÇÑ´Ù.
         if (dependency != null) {
           m.invoke(obj, dependency);
           

@@ -4,9 +4,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME) 
-//ì–´ë…¸í…Œì´ì…˜ ìœ ì§€ ì •ì±…ì´ë€ ì–´ë…¸í…Œì´ì…˜ ì •ë³´ë¥¼ ì–¸ì œê¹Œì§€ ìœ ì§€í•  ê²ƒì¸ì§€ ì„¤ì •í•˜ëŠ” ë¬¸ë²•
-//defaultëŠ” RetentionPolicy.CLASS
-//RetentionPolicy.RUNTIMEë¡œ í•´ì•¼ ì§„í–‰ ì¤‘ì—ë„ ì–¸ì œë“ ì§€ @Component ì–´ë…¸í…Œì´ì…˜ì˜ ì†ì„±ê°’ì„ ì°¸ì¡°í•  ìˆ˜ ìˆë‹¤.
+//¾î³ëÅ×ÀÌ¼Ç À¯Áö Á¤Ã¥ÀÌ¶õ ¾î³ëÅ×ÀÌ¼Ç Á¤º¸¸¦ ¾ğÁ¦±îÁö À¯ÁöÇÒ °ÍÀÎÁö ¼³Á¤ÇÏ´Â ¹®¹ı
+//default´Â RetentionPolicy.CLASS
+//RetentionPolicy.RUNTIME·Î ÇØ¾ß ÁøÇà Áß¿¡µµ ¾ğÁ¦µçÁö @Component ¾î³ëÅ×ÀÌ¼ÇÀÇ ¼Ó¼º°ªÀ» ÂüÁ¶ÇÒ ¼ö ÀÖ´Ù.
 public @interface Component {
   String value() default "";
 }

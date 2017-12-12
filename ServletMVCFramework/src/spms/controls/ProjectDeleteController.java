@@ -9,8 +9,8 @@ import spms.dao.ProjectDao;
 
 @Component("/project/delete.do")
 public class ProjectDeleteController implements Controller, DataBinding {
-	//í´ë¼ì´ì–¸íŠ¸ê°€ ë³´ë‚¸ ë°ì´í„°ë¥¼ í”„ëŸ°íŠ¸ ì»¨íŠ¸ë¡¤ëŸ¬ë¡œë¶€í„° ë°›ì•„ì•¼ í•˜ê¸° ë•Œë¬¸ì— 
-	//DataBinding ì¸í„°í˜ì´ìŠ¤ êµ¬í˜„  
+	//Å¬¶óÀÌ¾ğÆ®°¡ º¸³½ µ¥ÀÌÅÍ¸¦ ÇÁ·±Æ® ÄÁÆ®·Ñ·¯·ÎºÎÅÍ ¹Ş¾Æ¾ß ÇÏ±â ¶§¹®¿¡ 
+	//DataBinding ÀÎÅÍÆäÀÌ½º ±¸Çö  
 	ProjectDao projectDao;
   
   public ProjectDeleteController setProjectDao(ProjectDao projectDao) {

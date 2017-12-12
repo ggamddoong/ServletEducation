@@ -1,6 +1,6 @@
 package spms.dao;
 
-// MemberDao ì¸í„°í˜ì´ìŠ¤ ì •ì˜ 
+// MemberDao ÀÎÅÍÆäÀÌ½º Á¤ÀÇ 
 import java.util.List;
 
 import spms.vo.Member;

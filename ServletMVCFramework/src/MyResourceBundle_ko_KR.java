@@ -4,10 +4,10 @@ import java.util.ListResourceBundle;
 public class MyResourceBundle_ko_KR extends ListResourceBundle {
 	public Object[][] getContents() {
         return new Object[][] {
-    		{"OK", "í™•ì¸"},
-            {"Cancel", "ì·¨ì†Œ"},
-            {"Reset", "ì¬ì„¤ì •"},
-            {"Submit", "ì œì¶œ"}	
+    		{"OK", "È®ÀÎ"},
+            {"Cancel", "Ãë¼Ò"},
+            {"Reset", "Àç¼³Á¤"},
+            {"Submit", "Á¦Ãâ"}	
         };
     }
 }

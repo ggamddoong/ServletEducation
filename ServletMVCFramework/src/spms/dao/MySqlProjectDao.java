@@ -105,7 +105,7 @@ public class MySqlProjectDao implements ProjectDao {
           .setTags(rs.getString("TAGS"));
 
       } else {
-        throw new Exception("í•´ë‹¹ ë²ˆí˜¸ì˜ í”„ë¡œì íŠ¸ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+        throw new Exception("ÇØ´ç ¹øÈ£ÀÇ ÇÁ·ÎÁ§Æ®¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
       }
 
     } catch (Exception e) {

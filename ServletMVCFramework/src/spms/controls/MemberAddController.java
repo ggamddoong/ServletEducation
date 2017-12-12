@@ -7,11 +7,11 @@ import spms.bind.DataBinding;
 import spms.dao.MemberDao;
 import spms.vo.Member;
 
-// Annotation ì ìš©
+// Annotation Àû¿ë
 @Component("/member/add.do")
 public class MemberAddController implements Controller, DataBinding {
-										//í´ë¼ì´ì–¸íŠ¸ê°€ ë³´ë‚¸ ë°ì´í„°ë¥¼ í”„ëŸ°íŠ¸ ì»¨íŠ¸ë¡¤ëŸ¬ë¡œë¶€í„° ë°›ì•„ì•¼ í•˜ê¸° ë•Œë¬¸ì— 
-										//DataBinding ì¸í„°í˜ì´ìŠ¤ êµ¬í˜„
+										//Å¬¶óÀÌ¾ğÆ®°¡ º¸³½ µ¥ÀÌÅÍ¸¦ ÇÁ·±Æ® ÄÁÆ®·Ñ·¯·ÎºÎÅÍ ¹Ş¾Æ¾ß ÇÏ±â ¶§¹®¿¡ 
+										//DataBinding ÀÎÅÍÆäÀÌ½º ±¸Çö
   MemberDao memberDao;
   
   public MemberAddController setMemberDao(MemberDao memberDao) {
@@ -28,9 +28,9 @@ public class MemberAddController implements Controller, DataBinding {
   @Override
   public String execute(Map<String, Object> model) throws Exception {
     Member member = (Member)model.get("member");
-    if (member.getEmail() == null) { // ì…ë ¥í¼ì„ ìš”ì²­í•  ë•Œ
+    if (member.getEmail() == null) { // ÀÔ·ÂÆûÀ» ¿äÃ»ÇÒ ¶§
       return "/member/MemberForm.jsp";
-    } else { // íšŒì› ë“±ë¡ì„ ìš”ì²­í•  ë•Œ
+    } else { // È¸¿ø µî·ÏÀ» ¿äÃ»ÇÒ ¶§
       memberDao.insert(member);
       return "redirect:list.do";
     }

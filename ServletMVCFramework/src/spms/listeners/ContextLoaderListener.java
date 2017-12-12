@@ -1,6 +1,6 @@
 package spms.listeners;
 
-// í”„ë¡œí¼í‹° íŒŒì¼ ì ìš© : ApplicationContext ì‚¬ìš©
+// ÇÁ·ÎÆÛÆ¼ ÆÄÀÏ Àû¿ë : ApplicationContext »ç¿ë
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,8 +13,8 @@ public class ContextLoaderListener implements ServletContextListener {
   static ApplicationContext applicationContext;
   
   public static ApplicationContext getApplicationContext() {
-	  //ContextLoaderListenerì—ì„œ ë§Œë“  ApplicationContextê°ì²´ë¥¼ ì–»ì„ ë•Œ ì‚¬ìš©.(í”„ëŸ°íŠ¸ ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ì‚¬ìš©)
-	  //staticìœ¼ë¡œ ì„ ì–¸
+	  //ContextLoaderListener¿¡¼­ ¸¸µç ApplicationContext°´Ã¼¸¦ ¾òÀ» ¶§ »ç¿ë.(ÇÁ·±Æ® ÄÁÆ®·Ñ·¯¿¡¼­ »ç¿ë)
+	  //staticÀ¸·Î ¼±¾ğ
     return applicationContext;
   }
   
@@ -26,8 +26,8 @@ public class ContextLoaderListener implements ServletContextListener {
       
       String propertiesPath = sc.getRealPath(
           sc.getInitParameter("contextConfigLocation"));
-      //í”„ë¡œí¼í‹° íŒŒì¼ì˜ ì´ë¦„ê³¼ ê²½ë¡œ ì •ë³´ë¥¼ web.xmlíŒŒì¼ë¡œë¶€í„° ì½ì–´ ì˜¤ê²Œ ì²˜ë¦¬í•¨ (getInitParameter)
-      //web.xmlì— context-paramìœ¼ë¡œ contextconfigLocation ì •ì˜
+      //ÇÁ·ÎÆÛÆ¼ ÆÄÀÏÀÇ ÀÌ¸§°ú °æ·Î Á¤º¸¸¦ web.xmlÆÄÀÏ·ÎºÎÅÍ ÀĞ¾î ¿À°Ô Ã³¸®ÇÔ (getInitParameter)
+      //web.xml¿¡ context-paramÀ¸·Î contextconfigLocation Á¤ÀÇ
       applicationContext = new ApplicationContext(propertiesPath);
       
     } catch(Throwable e) {

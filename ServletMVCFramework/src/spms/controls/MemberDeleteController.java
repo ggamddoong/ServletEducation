@@ -6,11 +6,11 @@ import spms.annotation.Component;
 import spms.bind.DataBinding;
 import spms.dao.MemberDao;
 
-// Annotation ì ìš©
+// Annotation Àû¿ë
 @Component("/member/delete.do")
 public class MemberDeleteController implements Controller, DataBinding {
-	//í´ë¼ì´ì–¸íŠ¸ê°€ ë³´ë‚¸ ë°ì´í„°ë¥¼ í”„ëŸ°íŠ¸ ì»¨íŠ¸ë¡¤ëŸ¬ë¡œë¶€í„° ë°›ì•„ì•¼ í•˜ê¸° ë•Œë¬¸ì— 
-	//DataBinding ì¸í„°í˜ì´ìŠ¤ êµ¬í˜„	
+	//Å¬¶óÀÌ¾ğÆ®°¡ º¸³½ µ¥ÀÌÅÍ¸¦ ÇÁ·±Æ® ÄÁÆ®·Ñ·¯·ÎºÎÅÍ ¹Ş¾Æ¾ß ÇÏ±â ¶§¹®¿¡ 
+	//DataBinding ÀÎÅÍÆäÀÌ½º ±¸Çö	
   MemberDao memberDao;
   
   public MemberDeleteController setMemberDao(MemberDao memberDao) {

@@ -16,7 +16,7 @@ import spms.context.ApplicationContext;
 import spms.controls.Controller;
 import spms.listeners.ContextLoaderListener;
 
-// í˜ì´ì§€ ì»¨íŠ¸ë¡¤ëŸ¬ë¥¼ ì°¾ì„ ë•Œ ApplicationContextì˜ ì‚¬ìš©
+// ÆäÀÌÁö ÄÁÆ®·Ñ·¯¸¦ Ã£À» ¶§ ApplicationContextÀÇ »ç¿ë
 @SuppressWarnings("serial")
 @WebServlet("*.do")
 public class DispatcherServlet extends HttpServlet {
@@ -29,26 +29,26 @@ public class DispatcherServlet extends HttpServlet {
     try {
       ApplicationContext ctx = ContextLoaderListener.getApplicationContext();
       
-      // í˜ì´ì§€ ì»¨íŠ¸ë¡¤ëŸ¬ì—ê²Œ ì „ë‹¬í•  Map ê°ì²´ë¥¼ ì¤€ë¹„í•œë‹¤. 
+      // ÆäÀÌÁö ÄÁÆ®·Ñ·¯¿¡°Ô Àü´ŞÇÒ Map °´Ã¼¸¦ ÁØºñÇÑ´Ù. 
       HashMap<String,Object> model = new HashMap<String,Object>();
       model.put("session", request.getSession());
       
       Controller pageController = (Controller) ctx.getBean(servletPath);
       if (pageController == null) {
-        throw new Exception("ìš”ì²­í•œ ì„œë¹„ìŠ¤ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+        throw new Exception("¿äÃ»ÇÑ ¼­ºñ½º¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
       }
       
       if (pageController instanceof DataBinding) {
-    	  //ë§¤ê°œë³€ìˆ˜ ê°’ì´ í•„ìš”í•œ í˜ì´ì§€ ì»¨íŠ¸ë¡¤ëŸ¬ì— ëŒ€í•´ DataBinding ì¸í„°í˜ì´ìŠ¤ë¥¼ êµ¬í˜„í•˜ê¸°ë¡œ ê·œì¹™ì„ ì •í–ˆê¸° ë•Œë¬¸ì—
-    	  //DataBindingì„ êµ¬í˜„í–ˆëŠ”ì§€ ì—¬ë¶€ë¥¼ ê²€ì‚¬í•˜ì—¬, í•´ë‹¹ ì¸í„°í˜ì´ìŠ¤ë¥¼ êµ¬í˜„í•œ ê²½ìš°ì—ë§Œ
-    	  //prepareRequestData()ë¥¼ í˜¸ì¶œí•˜ì—¬ í˜ì´ì§€ ì»¨íŠ¸ë¡¤ëŸ¬ë¥¼  ìœ„í•œ ë°ì´í„°ë¥¼ ì¤€ë¹„
+    	  //¸Å°³º¯¼ö °ªÀÌ ÇÊ¿äÇÑ ÆäÀÌÁö ÄÁÆ®·Ñ·¯¿¡ ´ëÇØ DataBinding ÀÎÅÍÆäÀÌ½º¸¦ ±¸ÇöÇÏ±â·Î ±ÔÄ¢À» Á¤Çß±â ¶§¹®¿¡
+    	  //DataBindingÀ» ±¸ÇöÇß´ÂÁö ¿©ºÎ¸¦ °Ë»çÇÏ¿©, ÇØ´ç ÀÎÅÍÆäÀÌ½º¸¦ ±¸ÇöÇÑ °æ¿ì¿¡¸¸
+    	  //prepareRequestData()¸¦ È£ÃâÇÏ¿© ÆäÀÌÁö ÄÁÆ®·Ñ·¯¸¦  À§ÇÑ µ¥ÀÌÅÍ¸¦ ÁØºñ
         prepareRequestData(request, model, (DataBinding)pageController);
       }
 
-      // í˜ì´ì§€ ì»¨íŠ¸ë¡¤ëŸ¬ë¥¼ ì‹¤í–‰í•œë‹¤.
+      // ÆäÀÌÁö ÄÁÆ®·Ñ·¯¸¦ ½ÇÇàÇÑ´Ù.
       String viewUrl = pageController.execute(model);
       
-      // Map ê°ì²´ì— ì €ì¥ëœ ê°’ì„ ServletRequestì— ë³µì‚¬í•œë‹¤. (JSPì—ì„œ ì‚¬ìš©í•˜ê¸° ìœ„í•´)
+      // Map °´Ã¼¿¡ ÀúÀåµÈ °ªÀ» ServletRequest¿¡ º¹»çÇÑ´Ù. (JSP¿¡¼­ »ç¿ëÇÏ±â À§ÇØ)
       for (String key : model.keySet()) {
         request.setAttribute(key, model.get(key));
       }
@@ -80,9 +80,9 @@ public class DispatcherServlet extends HttpServlet {
       dataName = (String)dataBinders[i];
       dataType = (Class<?>) dataBinders[i+1];
       dataObj = ServletRequestDataBinder.bind(request, dataType, dataName);
-      //bindë©”ì„œë“œëŠ” dataNameê³¼ ì¼ì¹˜í•˜ëŠ” ìš”ì²­ ë§¤ê°œë³€ìˆ˜(í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë„˜ì–´ì˜¨ ê°’)ë¥¼ ì°¾ê³  
-      //dataTypeì„ í†µí•´ í•´ë‹¹ í´ë˜ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
-      //ì°¾ì€ ë§¤ê°œë³€ìˆ˜ ê°’ì„ ì¸ìŠ¤í„´ìŠ¤ì— ì €ì¥í•˜ë©° ê·¸ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ë°˜í™˜í•œë‹¤.
+      //bind¸Ş¼­µå´Â dataName°ú ÀÏÄ¡ÇÏ´Â ¿äÃ» ¸Å°³º¯¼ö(Å¬¶óÀÌ¾ğÆ®¿¡¼­ ³Ñ¾î¿Â °ª)¸¦ Ã£°í 
+      //dataTypeÀ» ÅëÇØ ÇØ´ç Å¬·¡½ºÀÇ ÀÎ½ºÅÏ½º¸¦ »ı¼ºÇÑ´Ù.
+      //Ã£Àº ¸Å°³º¯¼ö °ªÀ» ÀÎ½ºÅÏ½º¿¡ ÀúÀåÇÏ¸ç ±× ÀÎ½ºÅÏ½º¸¦ ¹İÈ¯ÇÑ´Ù.
       model.put(dataName, dataObj);
     }
   }
